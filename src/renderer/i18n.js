@@ -492,6 +492,45 @@ The install will go through. If the neural pass never appears in game, 616.56 is
     setAutoScan: '自动扫描所有磁盘', setAutoScanHint: '默认关闭。手动添加的文件夹始终会被扫描。',
     setNotices: '社区通知', setNoticesHint: '当有人回复我的评论、提到我，或评论我关注的游戏时通知我。',
     setGroupGames: '按商店分组显示游戏', setGroupGamesHint: '关闭后，所有游戏和模拟器将按字母顺序合并显示，不再按商店分区。',
+
+    // ===== 主题与安全图形（设置页）=====
+    setSkins: '主题', setSkinsHint: '整套程序有两套设计。无论选哪一套，浅色和深色模式都照常可用。',
+    skinOne: '主题 1 · Classic', skinOneHint: '程序一贯的设计。',
+    skinTwo: '主题 2 · Aperture', skinTwoHint: '杂志式工作台：水平导航、电影感的游戏页面与精准动效。',
+    setSafeGraphics: '安全图形模式', setSafeGraphicsHint: '如果窗口闪烁或残留之前的画面，请打开此项。它不使用显卡绘制，下次启动程序后生效。',
+
+    // ===== 侧边栏与详情页 =====
+    railCollapse: '把侧边栏折叠为图标', railExpand: '保持侧边栏展开',
+    sheetSetup: 'DLSS 安装', sheetFacts: '详情', sheetFiles: '游戏内文件', sheetActivity: '活动',
+
+    // ===== 主题 2 · Aperture 界面 =====
+    t2SetupTitle: '设置 DLSS 5', t2Cards: '卡片', t2List: '列表', t2Signal: '社区反馈', t2System: '系统 / 实时',
+    t2Updated: '更新于', t2ViewAll: '查看全部', t2Search: '搜索游戏、启动器或文件夹…', t2SearchHint: '输入游戏或页面名称',
+    t2Move: '移动', t2Open: '打开', t2Page: '页面', t2NoMatch: '没有匹配的名称', t2Play: '启动', t2PlayFailed: '无法从此处启动该游戏。',
+    t2About: '简介', t2Setup: 'DLSS 5 安装', t2Ready: '可安装', t2NotReady: '暂不可安装',
+    t2SetupNote: '选择 DLSS 5 安装到该游戏的方式。每项选择只针对该游戏保存。',
+    t2SetupInstalled: '该游戏已安装 DLSS 5。重新安装可更改安装方式，或还原原文件。',
+    t2InstallHint: '请先关闭游戏。「还原原文件」会把一切恢复原样。',
+    t2Folder: '游戏文件夹', t2OpenFolder: '打开文件夹', t2NoAbout: '未找到该游戏的简介。', t2Launcher: '游戏库',
+    t2Released: '发行日期', t2Genres: '类型', t2Rating: '评分', t2Close: '关闭', t2Dismiss: '关闭',
+
+    // ===== ReShade 代理文件 =====
+    fReshadeFile: 'ReShade 文件',
+    reshadeProxyWrapHint: 'ReShade 以 d3d11.dll 而不是 dxgi.dll 放入。该游戏通过 dgVoodoo 封装层访问 DirectX 11，某些配置下该层只加载 d3d11.dll——如果游戏能启动但没有叠加层、也没有生成 ReShade.log，试试此项。',
+    reshadeProxyHint: 'ReShade 以 d3d11.dll 而不是 dxgi.dll 放入。用于忽略 dxgi.dll 的 DirectX 11 游戏。如果已经装过，点击「安装」即可切换文件。',
+
+    // ===== 还原恢复与转发器 =====
+    restoreRecovered: (date) => `未找到生效的备份记录，程序将改用备份旁保留的那份（${date}）还原。它描述的文件仍在游戏中。`,
+    forwarderRetired: (rel) => `已移除另一构建的转发器（${rel}）。本构建直接连接神经运行时，残留的转发器会让流程静默中断。「还原原文件」会把它放回去。`,
+
+    // ===== 叠加层路线与多通道提示 =====
+    overlayNotForRoute: (why, api) => `游戏内叠加层将不会安装：${why === 'bits' ? '它只支持 64 位游戏，而该游戏是 32 位'
+      : why === 'multipass' ? '多通道路线在游戏内有自己的页面（按 Home）。叠加层只兼容原生 DLSS（RenoDX）和 Feeder'
+      : why === 'optiscaler' ? 'OptiScaler 在游戏内有自己的菜单（按 Insert）。叠加层只兼容原生 DLSS（RenoDX）和 Feeder'
+      : `它只支持 DirectX 11 和 12，而该游戏使用 ${api}`}。其余安装继续进行。`,
+    multipassNext: (dlss) => dlss === 'yes'
+      ? '多通道已安装。在游戏内按 Home 打开 RenoDX DLSS 标签页（最后一个，不是首页）：Pass Count 和所有其他设置都在那里。请在游戏自身设置中保持 DLSS 开启。'
+      : '多通道已安装。在游戏内按 Home 打开 RenoDX DLSS 标签页（最后一个，不是首页）。该游戏没有自带 DLSS，因此在该页面关闭 Require DLSS 并把 Hook Method 设为 Present。Pass Count 也在同一标签页。',
     supportBody: 'DLSS 5 Swapper 免费且基于 MIT 许可证。如果它为你省下了一晚上的折腾，可以请我喝杯咖啡 — 或用手机扫描二维码。',
   },
   es: {
