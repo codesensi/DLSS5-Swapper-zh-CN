@@ -1477,8 +1477,11 @@ async function openGameMenu(card, position) {
   const game = state.games.find(item => item.dir === dir);
   try {
     // The admin may have permanently removed this install's report while the
-    // desktop was open. Reconcile before choosing Add versus Edit/Delete.
-    await window.communityUi?.syncOwnReports?.();
+    // desktop was open. Reconcile in the background only: the menu must open
+    // at once, and a report the server dropped is cleaned up for the next
+    // right-click. (This used to be awaited, which held the menu hostage to a
+    // network round-trip of up to ten seconds.)
+    Promise.resolve(window.communityUi?.syncOwnReports?.()).catch(() => false);
     const action = await showGameMenu(game, position, { busy: jobRunning || cardActionsBusy.size > 0 });
     // The native menu used to ask before a restore. It still gets asked.
     if (action === 'restore' && !await ask({
