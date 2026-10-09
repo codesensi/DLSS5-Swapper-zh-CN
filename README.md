@@ -24,6 +24,80 @@
 > 原版由 **Rakan Alkhaldi** 开发，基于 **MIT 许可证**发布。本汉化版为衍生作品，
 > 同样遵循 MIT 许可证，**非官方发布**，与原作者无隶属关系。
 >
+> ### 从源码打包
+>
+> **环境要求**：Windows 10/11、Node.js ≥ 18（建议 20+）、npm；构建过程需要访问
+> GitHub（下载 pinned 组件）与 reshade.me。
+>
+> **1. 安装依赖**
+>
+> ```cmd
+> npm install
+> ```
+>
+> **2. 准备素材**（`scripts/collect-payload.js` 会校验，缺了会拒绝继续）
+>
+> - ReShade Addon 版安装器 `ReShade_Setup_6.8.0_Addon.exe`，放到 `vendor\`
+>   （脚本也会按 Downloads / OneDrive Downloads / 桌面的顺序自动查找）。
+>   注意：官网下载在部分 Windows TLS 环境下会被 schannel 拒绝，可改用浏览器或
+>   Node fetch 下载，并核对 SHA-256 与 `src/core/reshade-release.js` 中的 pin。
+> - 一个包含 `streamline\` 子目录和 `nvngx_dlssnr.dll` 的 DLSS 5 目录作为
+>   payload 源（命令行参数传入，或放到桌面等默认搜索位置）。
+>
+> **3. 构建 overlay 工具链**（首次需要；下载 zig 0.14.1 与 ReShade 6.8.0 SDK 到 `tools\`）
+>
+> ```cmd
+> npm run overlay:prepare
+> npm run overlay:build
+> ```
+>
+> **4. 收集 payload**（下载 DLSS5-Feeder 1.17.0 等 pinned 组件到 `vendor\component-cache`，
+> 全部经 SHA-256 校验；`npm run build` 的 prebuild 钩子会自动执行，可跳过）
+>
+> ```cmd
+> npm run payload
+> ```
+>
+> **5. 打包**（electron-builder，NSIS 安装版 + 便携版一起产出）
+>
+> ```cmd
+> npm run build
+> ```
+>
+> 产物在 `dist\`：`DLSS5-Swapper-Setup-<版本>.exe` 与
+> `DLSS5-Swapper-<版本>-portable.exe`。只想要便携版用 `npm run build:portable`。
+>
+> **常见问题**
+>
+> - **zig/makensis 报 `unable to make temporary file` / `!tempfile:`**：
+>   系统 `%TEMP%` 对构建进程不可写（如杀软按进程拦截）。把临时目录重定向到项目内：
+>
+>   ```cmd
+>   mkdir tools\tmp 2>nul & set TEMP=%CD%\tools\tmp& set TMP=%CD%\tools\tmp& npm run build
+>   ```
+>
+> - **下载 pinned 组件超时**：Node 的 fetch 不读系统代理，需要显式指定
+>   （端口按实际代理调整）：
+>
+>   ```cmd
+>   set NODE_USE_ENV_PROXY=1& set HTTPS_PROXY=http://127.0.0.1:7897& npm run payload
+>   ```
+>
+> - **原生依赖重建失败**：可加 `--config.npmRebuild=false` 跳过（本项目运行时
+>   无需编译原生模块）。
+> - **安装器报 `Error writing temporary file`**：同样是杀软按进程拦截新 exe
+>   写 `%TEMP%`，把 `dist\` 加入杀软信任区即可。
+>
+> **改前端 JS 后的快速补丁**（不必重新打包整个应用）：
+>
+> ```cmd
+> node node_modules\@electron\asar\bin\asar.js extract dist\win-unpacked\resources\app.asar tools\asar-work
+> copy /y src\renderer\i18n.js tools\asar-work\src\renderer\
+> node node_modules\@electron\asar\bin\asar.js pack tools\asar-work app.asar
+> ```
+>
+> 把生成的 `app.asar` 覆盖到安装目录的 `resources\` 下，重启应用即生效。
+>
 > ---
 >
 > *以下为原项目 README 原文。*
