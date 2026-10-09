@@ -30,7 +30,8 @@
       tooMany: 'You can attach up to 4 images.', tooLarge: 'Each original image may be up to 15 MB.',
       badImage: 'That image could not be read.', profile: 'Choose a community name in Settings before using mentions.',
       noGames: 'No matching community games.', label: 'Add label', chooseLabel: 'Choose a label', clearLabel: 'No label', dlssOn: 'DLSS 5 ON', dlssOff: 'DLSS 5 OFF',
-      fit: 'Fit', copied: 'Copied.', saved: 'Image saved.', online: 'Live updates connected'
+      fit: 'Fit', copied: 'Copied.', saved: 'Image saved.', online: 'Live updates connected',
+      offline: 'Community service is unavailable. Check your connection and try again.'
     },
     ar: {
       nav: 'الشات', title: 'شات المجتمع', subtitle: 'شارك النتائج والصور واكتشافات الألعاب مع الجميع.',
@@ -50,7 +51,8 @@
       tooMany: 'يمكنك إرفاق 4 صور كحد أقصى.', tooLarge: 'الحد الأقصى للصورة الأصلية 15 ميجابايت.',
       badImage: 'تعذر قراءة هذه الصورة.', profile: 'اختر اسمًا للمجتمع من الإعدادات لاستخدام المنشن.',
       noGames: 'لا توجد ألعاب مطابقة.', label: 'اكتب تاق', chooseLabel: 'اختر تاق للصورة', clearLabel: 'بدون تاق', dlssOn: 'DLSS 5 ON', dlssOff: 'DLSS 5 OFF',
-      fit: 'ملاءمة', copied: 'تم النسخ.', saved: 'تم حفظ الصورة.', online: 'التحديث المباشر متصل'
+      fit: 'ملاءمة', copied: 'تم النسخ.', saved: 'تم حفظ الصورة.', online: 'التحديث المباشر متصل',
+      offline: 'خدمة المجتمع غير متاحة. تحقق من اتصالك وحاول مجددًا.'
     },
     zh: {
       nav: '聊天', title: '社区聊天', subtitle: '与大家分享测试结果、截图和游戏发现。',
@@ -70,10 +72,16 @@
       tooMany: '最多只能附加 4 张图片。', tooLarge: '每张原图最大 15 MB。',
       badImage: '无法读取该图片。', profile: '使用提及功能前，请先在设置中选择社区昵称。',
       noGames: '没有匹配的社区游戏。', label: '添加标签', chooseLabel: '选择标签', clearLabel: '无标签', dlssOn: 'DLSS 5 已开启', dlssOff: 'DLSS 5 已关闭',
-      fit: '适应窗口', copied: '已复制。', saved: '图片已保存。', online: '实时更新已连接'
+      fit: '适应窗口', copied: '已复制。', saved: '图片已保存。', online: '实时更新已连接',
+      offline: '社区服务不可用。请检查网络后重试。'
     }
   };
   const words = () => { const c = (window.i18n?.getLang?.() || 'en').toLowerCase(); return L[c] || L[c.split('-')[0]] || L.en; };
+  // Known error codes re-map to the dictionary; everything else keeps the message from the main process.
+  const errMsg = (answer, fallbackKey) => {
+    if (answer?.error === 'community_offline') return words().offline;
+    return answer?.message || words()[fallbackKey];
+  };
   const readJson = (key, fallback) => { try { return JSON.parse(localStorage.getItem(key)) || fallback; } catch { return fallback; } };
   const state = {
     messages: [], etag: null, version: 0, hasMore: false, timer: null, busy: false, initial: true,
@@ -203,7 +211,7 @@
     const bottom = atBottom();
     try {
       const answer = await window.lab.communityChatFeed({ limit: 50, etag: manual ? null : state.etag });
-      if (!answer?.ok) throw new Error(answer?.message || words().uploadFailed);
+      if (!answer?.ok) throw new Error(errMsg(answer, 'uploadFailed'));
       if (answer.notModified) return;
       state.etag = answer.etag || null;
       const count = mergeLatest(answer.feed || {}, first);
@@ -219,7 +227,7 @@
     const room = $('chatRoom'), oldHeight = room.scrollHeight;
     try {
       const answer = await window.lab.communityChatFeed({ before: state.messages[0].id, limit: 50 });
-      if (!answer?.ok) throw new Error(answer?.message || words().uploadFailed);
+      if (!answer?.ok) throw new Error(errMsg(answer, 'uploadFailed'));
       const known = new Set(state.messages.map(item => String(item.id)));
       state.messages = (answer.feed?.messages || []).filter(item => !known.has(String(item.id)) && !state.suppressed.has(String(item.id))).concat(state.messages);
       state.hasMore = Boolean(answer.feed?.hasMore);
@@ -362,17 +370,17 @@
     try {
       if (state.editing) {
         const answer = await window.lab.communityChatEdit(state.editing.id, body);
-        if (!answer?.ok) throw new Error(answer?.message || words().uploadFailed);
+        if (!answer?.ok) throw new Error(errMsg(answer, 'uploadFailed'));
       } else {
         const uploads = await Promise.all(state.attachments.map(async item => {
           const bytes = await item.blob.arrayBuffer();
           const answer = await window.lab.communityChatUpload({ mime: 'image/webp', width: item.width, height: item.height, bytes: item.bytes, label: item.label || null }, bytes);
-          if (!answer?.ok) throw new Error(answer?.message || words().uploadFailed);
+          if (!answer?.ok) throw new Error(errMsg(answer, 'uploadFailed'));
           return answer.token;
         }));
         const mentions = window.mentions.stillNamed(body, state.picked);
         const answer = await window.lab.communityChatPost({ body, uploads, mentions, replyTo: state.reply?.id || null, gameKey: state.game?.key || null });
-        if (!answer?.ok) throw new Error(answer?.message || words().uploadFailed);
+        if (!answer?.ok) throw new Error(errMsg(answer, 'uploadFailed'));
       }
       input.value = ''; try { localStorage.removeItem(DRAFT_KEY); } catch {}
       state.reply = null; state.editing = null; state.picked = []; clearAttachments(); fitInput();
@@ -445,19 +453,19 @@
   async function deleteMessage(message) {
     if (!await confirmAction(words().deleteTitle, words().deleteBody, words().remove)) return;
     const answer = await window.lab.communityChatDelete(message.id);
-    if (!answer?.ok) return notice(answer?.message || words().uploadFailed, true);
+    if (!answer?.ok) return notice(errMsg(answer, 'uploadFailed'), true);
     suppressMessage(message); state.etag = null;
   }
   async function moderate(message, action) {
     if (!await confirmAction(words().moderateTitle, words()[action === 'delete' ? 'adminDelete' : action], words().confirm)) return;
     const answer = await window.lab.communityChatModerate(message.id, action);
-    if (!answer?.ok) return notice(answer?.message || words().uploadFailed, true);
+    if (!answer?.ok) return notice(errMsg(answer, 'uploadFailed'), true);
     suppressMessage(message, action); state.etag = null;
   }
   async function react(message, emoji) {
     const key = `${message.id}:${emoji}`, on = !state.mine[key];
     const answer = await window.lab.communityChatReaction(message.id, emoji, on);
-    if (!answer?.ok) return notice(answer?.message || words().uploadFailed, true);
+    if (!answer?.ok) return notice(errMsg(answer, 'uploadFailed'), true);
     if (on) state.mine[key] = true; else delete state.mine[key]; saveMine();
     message.reactions = answer.result?.reactions || message.reactions; paintMessages();
   }
@@ -497,7 +505,7 @@
     else if (action === 'block') moderate(message, 'block');
     else if (action === 'save' && image?.url) {
       const answer = await window.lab.communityChatSaveImage(image.url, `chat-${message.id}-${(message.images || []).indexOf(image) + 1}`);
-      notice(answer?.ok ? words().saved : answer?.message || words().uploadFailed, !answer?.ok);
+      notice(answer?.ok ? words().saved : errMsg(answer, 'uploadFailed'), !answer?.ok);
     }
   }
 

@@ -5,7 +5,7 @@
   const L = {
     en: {
       title: 'Community-tested games', subtitle: 'Real results from DLSS 5 Swapper users.', refresh: 'Refresh', search: 'Search games', route: 'Route', api: 'Rendering API', result: 'Result',
-      showAllReports: 'Show all reports', scopeAll: 'Everyone', scopeMine: 'My games', scopeReports: 'My comments', mineHint: 'Only the games installed on this PC', reportsHint: 'The games you reported on', reportsTotal: n => `You reported on ${n} game${n === 1 ? '' : 's'}`, reportsEmpty: 'You have not reported on any game yet.', showingMine: n => `Your ${n} report${n === 1 ? '' : 's'}`, sortLabel: 'Sort', sortRecent: 'Most recent', sortReports: 'Most reports', sortTitle: 'A–Z', noReportsYet: n => `On this PC, no reports yet · ${n}`, noReportsHint: 'Open one to install it - then be the first to say how it went.', installedBadge: 'DLSS 5 installed', onPc: 'On this PC', gpuLabel: 'Graphics card', allGpus: 'All graphics cards', myGpu: model => `My card · ${model}`, mineEmpty: 'None of the games on this PC have community reports yet.', mineTotal: n => `${n} of your games have reports`, showingGpu: (model, n) => `${n} report${n === 1 ? '' : 's'} on ${model}`, allRoutes: 'All routes', allApis: 'All APIs', allResults: 'All results', working: 'Working', issues: 'Works with issues', broken: 'Not working', mixed: 'Mixed', clear: 'Clear filters', loading: 'Loading community results…', empty: 'No matching community reports yet.', offline: 'Community service is unavailable. Check your connection and try again.',
+      showAllReports: 'Show all reports', scopeAll: 'Everyone', scopeMine: 'My games', scopeReports: 'My comments', mineHint: 'Only the games installed on this PC', reportsHint: 'The games you reported on', reportsTotal: n => `You reported on ${n} game${n === 1 ? '' : 's'}`, reportsEmpty: 'You have not reported on any game yet.', showingMine: n => `Your ${n} report${n === 1 ? '' : 's'}`, sortLabel: 'Sort', sortRecent: 'Most recent', sortReports: 'Most reports', sortTitle: 'A–Z', noReportsYet: n => `On this PC, no reports yet · ${n}`, noReportsHint: 'Open one to install it - then be the first to say how it went.', installedBadge: 'DLSS 5 installed', onPc: 'On this PC', gpuLabel: 'Graphics card', allGpus: 'All graphics cards', myGpu: model => `My card · ${model}`, mineEmpty: 'None of the games on this PC have community reports yet.', mineTotal: n => `${n} of your games have reports`, showingGpu: (model, n) => `${n} report${n === 1 ? '' : 's'} on ${model}`, allRoutes: 'All routes', allApis: 'All APIs', allResults: 'All results', working: 'Working', issues: 'Works with issues', broken: 'Not working', mixed: 'Mixed', clear: 'Clear filters', loading: 'Loading community results…', empty: 'No matching community reports yet.', offline: 'Community service is unavailable. Check your connection and try again.', mediaUpload: 'Image upload failed. Check your connection and try again.',
       reports: n => `${n} report${n === 1 ? '' : 's'}`, comments: n => `${n} comment${n === 1 ? '' : 's'}`, noComments: 'No comments yet.', updated: 'Live updates are on while this card is open.',
       share: 'Share your result', shareHint: 'Share your result and help the community.', why: 'Your report helps improve compatibility for everyone.', routeUsed: 'Route used', choose: 'Choose…', unknown: 'No results yet', yourResult: 'Your result', optionalComment: 'Optional comment', sent: 'Data that will be sent', cancel: 'Cancel', submit: 'Submit report', submitting: 'Submitting…', chooseRoute: 'Choose the route you actually used.', chooseVerdict: 'Choose your result.', sentOk: 'Your report was added to the community.',
       profile: 'Community profile', profileHint: 'Your fixed avatar and display name appear beside your comments. A name can change once a week.', displayName: 'Display name', chooseIcon: 'Choose an avatar', save: 'Save profile', saved: 'Profile saved.', adminMode: 'Administrator mode', adminModeHint: 'Your replies are sent with your official name, avatar and ADMIN badge.', adminLogout: 'Sign out of administrator mode', adminLoggedOut: 'Administrator mode signed out.', unnamed: 'Anonymous', addGame: 'Add to community-tested games', reactionFailed: 'Could not save that reaction.',
@@ -69,11 +69,12 @@
       pinnedAnnouncement: 'إعلان مثبّت', copyMessage: 'نسخ الرسالة', replyMention: 'رد مع منشن',
       hideMessage: 'إخفاء الرسالة', blockAuthor: 'حظر الكاتب', copied: 'تم نسخ الرسالة.', moderationDone: 'تم تنفيذ الإجراء.',
       gameTotal: n => `${n.toLocaleString('ar')} لعبة`,
-      facts: { title: 'اللعبة', route: 'الطريقة', api: 'الواجهة', gpu: 'كرت الشاشة', driver: 'التعريف', cpu: 'المعالج', os: 'النظام', app: 'إصدار البرنامج' }
+      facts: { title: 'اللعبة', route: 'الطريقة', api: 'الواجهة', gpu: 'كرت الشاشة', driver: 'التعريف', cpu: 'المعالج', os: 'النظام', app: 'إصدار البرنامج' },
+      mediaUpload: 'فشل تحميل الصورة. تحقق من اتصالك وحاول مجددًا.'
     },
     zh: {
       title: '社区实测游戏', subtitle: '来自 DLSS 5 Swapper 用户的真实测试结果。', refresh: '刷新', search: '搜索游戏', route: '安装方式', api: '渲染 API', result: '结果',
-      scopeAll: '全部', scopeMine: '我的游戏', scopeReports: '我的评论', mineHint: '仅显示本机已安装的游戏', reportsHint: '你提交过报告的游戏', reportsTotal: n => `你报告过 ${n} 个游戏`, reportsEmpty: '你还没有提交过任何游戏报告。', showingMine: n => `你的 ${n} 条报告`, sortLabel: '排序', sortRecent: '最新优先', sortReports: '报告最多', sortTitle: 'A–Z', noReportsYet: n => `本机暂无报告 · ${n}`, noReportsHint: '打开任意一个安装，然后成为第一个分享结果的人。', installedBadge: '已安装 DLSS 5', onPc: '本机已安装', gpuLabel: '显卡', allGpus: '所有显卡', myGpu: model => `我的显卡 · ${model}`, mineEmpty: '本机的游戏还没有任何社区报告。', mineTotal: n => `你的 ${n} 个游戏有报告`, showingGpu: (model, n) => `${model} 上有 ${n} 条报告`, allRoutes: '所有安装方式', allApis: '所有 API', allResults: '所有结果', working: '可用', issues: '可用但有瑕疵', broken: '不可用', mixed: '结果不一', clear: '清除筛选', loading: '正在加载社区结果…', empty: '没有匹配的社区报告。', offline: '社区服务不可用。请检查网络后重试。',
+      scopeAll: '全部', scopeMine: '我的游戏', scopeReports: '我的评论', mineHint: '仅显示本机已安装的游戏', reportsHint: '你提交过报告的游戏', reportsTotal: n => `你报告过 ${n} 个游戏`, reportsEmpty: '你还没有提交过任何游戏报告。', showingMine: n => `你的 ${n} 条报告`, sortLabel: '排序', sortRecent: '最新优先', sortReports: '报告最多', sortTitle: 'A–Z', noReportsYet: n => `本机暂无报告 · ${n}`, noReportsHint: '打开任意一个安装，然后成为第一个分享结果的人。', installedBadge: '已安装 DLSS 5', onPc: '本机已安装', gpuLabel: '显卡', allGpus: '所有显卡', myGpu: model => `我的显卡 · ${model}`, mineEmpty: '本机的游戏还没有任何社区报告。', mineTotal: n => `你的 ${n} 个游戏有报告`, showingGpu: (model, n) => `${model} 上有 ${n} 条报告`, allRoutes: '所有安装方式', allApis: '所有 API', allResults: '所有结果', working: '可用', issues: '可用但有瑕疵', broken: '不可用', mixed: '结果不一', clear: '清除筛选', loading: '正在加载社区结果…', empty: '没有匹配的社区报告。', offline: '社区服务不可用。请检查网络后重试。', mediaUpload: '图片上传失败，请检查网络后重试。',
       reports: n => `${n} 条报告`, comments: n => `${n} 条评论`, noComments: '还没有评论。', updated: '此卡片打开期间会实时更新。',
       share: '分享你的结果', shareHint: '分享你的结果，帮助完善社区数据。', why: '你的报告能帮助所有人改善兼容性。', routeUsed: '使用的安装方式', choose: '请选择…', unknown: '暂无结果', yourResult: '你的结果', optionalComment: '备注（可选）', sent: '将要发送的数据', cancel: '取消', submit: '提交报告', submitting: '正在提交…', chooseRoute: '请选择你实际使用的安装方式。', chooseVerdict: '请选择你的结果。', sentOk: '你的报告已提交到社区。',
       profile: '社区资料', profileHint: '你固定的头像和昵称会显示在评论旁。昵称每周只能修改一次。', displayName: '昵称', chooseIcon: '选择头像', save: '保存资料', saved: '资料已保存。', adminMode: '管理员模式', adminModeHint: '你的回复会带上官方名称、头像和管理员标识。', adminLogout: '退出管理员模式', adminLoggedOut: '已退出管理员模式。', unnamed: '匿名', addGame: '加入社区实测游戏', reactionFailed: '无法保存该表情回应。',
@@ -162,6 +163,14 @@
 
   const saveMine = () => { try { localStorage.setItem(MINE_KEY, JSON.stringify(state.mine)); } catch { /* private window, or storage off */ } };
   const text = () => { const c = (window.i18n?.getLang?.() || 'en').toLowerCase(); return L[c] || L[c.split('-')[0]] || L.en; };
+  // IPC answers carry the main process's English error strings; known error
+  // codes are re-mapped to the dictionary so users see their own language.
+  const errMsg = (answer, fallbackKey) => {
+    const t = text();
+    if (answer?.error === 'community_offline') return t.offline;
+    if (answer?.error === 'media_upload' && t.mediaUpload) return t.mediaUpload;
+    return answer?.message || t[fallbackKey];
+  };
   const totals = verdicts => Object.values(verdicts || {}).reduce((sum, row) => ({ green: sum.green + (row.green || 0), yellow: sum.yellow + (row.yellow || 0), red: sum.red + (row.red || 0) }), { green: 0, yellow: 0, red: 0 });
   const statusClass = status => ['working', 'mixed', 'broken'].includes(status) ? status : 'unknown';
   const statusText = status => status === 'working' ? text().working : status === 'broken' ? text().broken : status === 'mixed' ? text().mixed : text().unknown;
@@ -427,7 +436,7 @@
       // A count from the last successful load would be a claim about a list
       // that is no longer on screen.
       $('communityGameTotal').textContent = '';
-      $('communityNotice').textContent = response?.message || text().offline;
+      $('communityNotice').textContent = errMsg(response, 'offline');
       return;
     }
     // The first answer is also where the server says which filters it has. If
@@ -657,7 +666,7 @@
       button.disabled = true;
       const answer = await window.lab.communityReply(id, said, mentionTags(said));
       button.disabled = false;
-      if (!answer?.ok) { $('communityNotice').textContent = answer?.message || text().reactionFailed; return; }
+      if (!answer?.ok) { $('communityNotice').textContent = errMsg(answer, 'reactionFailed'); return; }
       box.value = '';
       state.mentions = [];
       comment.replies = (Number(comment.replies) || 0) + 1;
@@ -792,7 +801,7 @@
   async function openCard(key) {
     stopPolling(); state.etag = null; state.gpuShowAll = false; state.reportsShowAll = false;
     const response = await window.lab.communityCard(key, null);
-    if (!response?.ok || !response.card) { $('communityNotice').textContent = response?.message || text().offline; return; }
+    if (!response?.ok || !response.card) { $('communityNotice').textContent = errMsg(response, 'offline'); return; }
     state.etag = response.etag; paintCard(response.card);
     $('communityCardDialog').showModal();
     state.timer = setInterval(poll, 10_000);
@@ -898,7 +907,7 @@
 
   async function openReport(dir, previous) {
     const response = await window.lab.communityPrefill(dir);
-    if (!response?.ok) { $('communityNotice').textContent = response?.message || text().offline; return; }
+    if (!response?.ok) { $('communityNotice').textContent = errMsg(response, 'offline'); return; }
     state.report = { ...response.prefill, dir };
     state.verdict = previous?.verdict || null;
     state.mentions = [];
@@ -933,10 +942,10 @@
     // Nothing was saved: the dialog stays open with everything still in it, and
     // the reason is said out loud rather than left in a line under the form.
     if (!response?.ok) {
-      $('communityReportError').textContent = response?.message || text().offline;
+      $('communityReportError').textContent = errMsg(response, 'offline');
       const again = await window.cheer.show({
         tone: 'bad', kicker: text().failTitle, title: p.title || '',
-        note: `${response?.message || text().offline}\n${text().failNote}`,
+        note: `${errMsg(response, 'offline')}\n${text().failNote}`,
         hero: p.hero, poster: p.poster,
         actions: [{ id: 'retry', label: text().failGo }, { id: 'close', label: text().failStay }]
       });
@@ -978,7 +987,7 @@
       $('communityAdminLogout').onclick = async () => {
         const button = $('communityAdminLogout'); button.disabled = true;
         const response = await window.lab.communityAdminLogout();
-        if (!response?.ok) { button.disabled = false; $('communityProfileStatus').textContent = response?.message || text().offline; return; }
+        if (!response?.ok) { button.disabled = false; $('communityProfileStatus').textContent = errMsg(response, 'offline'); return; }
         state.admin = null;
         section.remove();
         await renderProfile(container);
@@ -1005,7 +1014,7 @@
         await renderProfile(container);
         return;
       }
-      $('communityProfileStatus').textContent = response?.ok ? text().saved : (response?.message || text().offline);
+      $('communityProfileStatus').textContent = response?.ok ? text().saved : (errMsg(response, 'offline'));
     };
     $('communityRemoveMe').onclick = async () => {
       if (!await ask({
@@ -1016,7 +1025,7 @@
       button.disabled = true; button.textContent = text().removing; $('communityProfileStatus').textContent = '';
       const response = await window.lab.communityDeleteMe();
       button.disabled = false; button.textContent = text().removeMine;
-      if (!response?.ok) { $('communityProfileStatus').textContent = response?.message || text().offline; return; }
+      if (!response?.ok) { $('communityProfileStatus').textContent = errMsg(response, 'offline'); return; }
       $('communityProfileName').value = ''; icon = 0;
       section.querySelectorAll('[data-community-icon]').forEach(pick => pick.classList.toggle('selected', pick.dataset.communityIcon === '0'));
       const result = response.result || {};
@@ -1036,7 +1045,7 @@
       confirm: text().removeReport, cancel: text().cancelEdit
     })) return;
     const answer = await window.lab.communityWithdraw(id);
-    if (!answer?.ok) { $('communityNotice').textContent = answer?.message || text().offline; return; }
+    if (!answer?.ok) { $('communityNotice').textContent = errMsg(answer, 'offline'); return; }
     forgetMine(state.active?.key);
     const key = state.active?.key;
     closeCard();
@@ -1052,7 +1061,7 @@
       confirm: text().remove, cancel: text().cancelEdit
     })) return;
     const answer = await window.lab.communityWithdrawReply(id);
-    if (!answer?.ok) { $('communityNotice').textContent = answer?.message || text().offline; return; }
+    if (!answer?.ok) { $('communityNotice').textContent = errMsg(answer, 'offline'); return; }
     if (state.thread?.comment) state.thread.comment.replies = Math.max(0, (Number(state.thread.comment.replies) || 0) - 1);
     bumpCardComments(state.active?.key, -1);
     await paintThread({ fresh: true });
@@ -1064,7 +1073,7 @@
     const said = box.value.trim();
     if (!said) return;
     const answer = await window.lab.communityEditReply(state.editing.id, said);
-    if (!answer?.ok) { $('communityNotice').textContent = answer?.message || text().offline; return; }
+    if (!answer?.ok) { $('communityNotice').textContent = errMsg(answer, 'offline'); return; }
     state.editing = null;
     await paintThread({ fresh: true });
   }
@@ -1097,7 +1106,7 @@
     if (answer?.ok) return;
     state.watching = was;
     paintFollow();
-    $('communityNotice').textContent = answer?.message || text().offline;
+    $('communityNotice').textContent = errMsg(answer, 'offline');
   }
 
   function ringBell(on) {
@@ -1244,7 +1253,7 @@
     const label = action === 'block' ? text().blockAuthor : text().hideMessage;
     if (!await ask({ icon: action === 'block' ? 'shield' : 'hide', title: label, body: `${label}?`, confirm: label, cancel: text().cancelEdit })) return;
     const answer = await window.lab.communityAdminModerate(message.kind, message.id, action);
-    if (!answer?.ok) { $('communityNotice').textContent = answer?.message || text().offline; return; }
+    if (!answer?.ok) { $('communityNotice').textContent = errMsg(answer, 'offline'); return; }
     $('communityNotice').textContent = text().moderationDone;
     if (action === 'block' || message.kind === 'report') {
       closeCard();
@@ -1414,7 +1423,7 @@
       button.disabled = true;
       const response = await window.lab.communityReaction(report, emoji, on);
       button.disabled = false;
-      if (!response?.ok) { $('communityNotice').textContent = response?.message || text().reactionFailed; return; }
+      if (!response?.ok) { $('communityNotice').textContent = errMsg(response, 'reactionFailed'); return; }
 
       if (on) state.mine[key] = true; else delete state.mine[key];
       saveMine();
