@@ -98,5 +98,9 @@
       "artifactName": "DLSS5-Swapper-Setup-${version}.exe",
       "include": "build/installer.nsh"
     }
+  },
+  "allowScripts": {
+    "electron@33.4.11": true,
+    "electron-winstaller@5.4.0": true
   }
 }
